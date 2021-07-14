@@ -1,0 +1,41 @@
+<template>
+  <lightning-card>
+      <lightning-card variant="Narrow" title="Events Related Information" icon-name="standard:related_list">
+          <lightning-tabset variant="scoped">
+              <lightning-tab label="Event Details">
+                  <lightning-record-form record-id={recordId} mode="view" layout-type="Full" columns="2" object-api-name="Event__c">
+                  </lightning-record-form>
+              </lightning-tab>
+              <lightning-tab label="Speaker Details">
+                  <template if:true={speakerList}>
+                      <lightning-datatable data={speakerList} columns={columnsSpk} key-field="Id" show-row-number-column hide-checkbox-column></lightning-datatable>
+                  </template>
+                  <template if:false={speakerList}>
+                      <p>No Speaker was associated to this Event</p>
+                  </template>
+              </lightning-tab>
+              <lightning-tab label="Location Details">
+                  <template if:true={eventLocation}>
+                      <div class="slds-clearfix">
+                          <lightning-icon class="slds-float_left" icon-name="standard:location" size="large" style="margin-right:10px;"></lightning-icon>
+                              <lightning-formatted-address city={eventLocation.Location__r.City__c} province={eventLocation.Location__r.State__c} postal-code={eventLocation.Location__r.Postal_Code__c} country={eventLocation.Location__r.Country} street={eventLocation.Location__r.Street__c} title="Event Location"></lightning-formatted-address>
+                          <p>Landmark: {eventLocation.Location__r.Landmark__c}</p>
+                      </div>
+                  </template>
+                  <template if:false={eventLocation}>
+                      <p>No location (Virtual Event)</p>
+                  </template>
+              </lightning-tab>
+              <lightning-tab label="Attendee Details">
+                  <template if:true={attendeeList}>
+                      <lightning-datatable data={attendeeList} columns={columnsAtt} key-field="Id" show-row-number-column hide-checkbox-column></lightning-datatable>
+                  </template>
+                  <template if:false={attendeeList}>
+                      <p>No Attendee was associated to this Event</p>
+                  </template>
+              </lightning-tab>
+          </lightning-tabset>
+      </lightning-card>
+      
+  </lightning-card>
+</template>

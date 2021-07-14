@@ -1,0 +1,22 @@
+<template>
+    <lightning-card variant="Narrow" title="Events" icon-name="standard:event">
+        <lightning-tabset variant="scoped">
+            <lightning-tab label="Upcoming Events">
+                <template if:true={futureEventList}>
+                    <lightning-datatable data={futureEventList} columns={columnsFtrEvts} key-field="Id" show-row-number-column hide-checkbox-column></lightning-datatable>
+                </template>
+                <template if:false={futureEventList}>
+                    <p>No upcoming events</p>
+                </template>
+            </lightning-tab>
+            <lightning-tab label="Past Events">
+                <template if:true={pastEventList}>
+                    <lightning-datatable data={pastEventList} columns={columnsPstEvts} key-field="Id" show-row-number-column hide-checkbox-column></lightning-datatable>
+                </template>
+                <template if:false={pastEventList}>
+                    <p>No past events</p>
+                </template>
+            </lightning-tab>
+        </lightning-tabset>
+    </lightning-card>
+</template>
